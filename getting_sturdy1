@@ -20,19 +20,19 @@ int main() {
 
 	// Prompt user to input dblCanAffordMonthly, intYears, dblRate
 	
-	printf_s("Enter the monthly payment you can afford: ");
-	scanf_s("%lf", &dblCanAffordMonthly);
+	printf("Enter the monthly payment you can afford: ");
+	scanf("%lf", &dblCanAffordMonthly);
 
 	// Ask User to Enter number of years
-	printf_s("Enter the number of years: ");
-	scanf_s("%d", &intYears);
+	printf("Enter the number of years: ");
+	scanf("%d", &intYears);
 
 	// Compute intNumberOfPeriods
 	intNumberOfPeriods = intYears * 12;
 
 	// Ask user to Enter rate
-	printf_s("Enter the rate (e.g. 3.4 for 3.4%%): ");
-	scanf_s("%lf", &dblRate);
+	printf("Enter the rate (e.g. 3.4 for 3.4%%): ");
+	scanf("%lf", &dblRate);
 
 	// Compute dblRate
 	dblRate /= (100.0 * 12);
@@ -43,11 +43,11 @@ int main() {
 	dblMaxLoanAmount = (dblCanAffordMonthly) * (1 - pow((1 + dblRate),-intNumberOfPeriods)) / dblRate ;
 
 	// Tells user the maximum amount they could borrow
-	printf_s("The maximum amount you should borrow is: $%.2f\n", dblMaxLoanAmount);
+	printf("The maximum amount you should borrow is: $%.2f\n", dblMaxLoanAmount);
 
 	// Asks the user to enter amount of money borrowed
-	printf_s("Enter the amount borrowed: ");
-	scanf_s("%lf", &dblAmountBorrowed);
+	printf("Enter the amount borrowed: ");
+	scanf("%lf", &dblAmountBorrowed);
 
 	// Assign and compute the numberator of the amortization equation
 	double onePlusRToN = pow((1 + dblRate), intNumberOfPeriods);
@@ -56,10 +56,10 @@ int main() {
 	dblMonthlyPayment = dblAmountBorrowed * (dblRate * onePlusRToN) / (onePlusRToN - 1);
 
 	// Prints user's monthly payment
-	printf_s("Your monthly payment is: $%.2f\n", dblMonthlyPayment);
+	printf("Your monthly payment is: $%.2f\n", dblMonthlyPayment);
 
 	// Pritns Headers
-	printf_s("Period:\t\tPrincipal:\t\tInterest:\tTotal Interest:\t\tBalance:\n");
+	printf("Period:\t\tPrincipal:\t\tInterest:\tTotal Interest:\t\tBalance:\n");
 	
 	// Introducing intPeriod, which represents each month and dblPrin, which is the Principal
 	int intPeriod;
@@ -81,7 +81,7 @@ int main() {
 		dblTotalInt += dblMonthlyInt;
 
 		// Prints computations until end of time period
-		printf_s("%7u%19.2f%23.2f%22.2f%17.2f\n", intPeriod, dblPrin, dblMonthlyInt, dblTotalInt, dblBalancePrinc);
+		printf("%7u%19.2f%23.2f%22.2f%17.2f\n", intPeriod, dblPrin, dblMonthlyInt, dblTotalInt, dblBalancePrinc);
 
 	}
 
