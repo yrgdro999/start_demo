@@ -1,0 +1,91 @@
+// Name: Pedro Rosa
+// Email: prosa@umassd.edu
+// ID: 01868242
+// Assignment: Project Chapter 4
+// Due Date: 10/18/2021
+
+#include <stdio.h>
+#include <math.h>
+
+
+int main() {
+
+	double dblCanAffordMonthly; // Amount individual can afford to pay each month
+	int intYears; // Number of years of loan
+	int intNumberOfPeriods; // Number of years times 12 (number of months)
+	double dblRate; // Annual interest rate of loan
+	double dblMaxLoanAmount; // Maximum amount individual can afford to borrow
+	double dblAmountBorrowed; // Amount individual borrowed
+	double dblMonthlyPayment; // Amount individual must pay monthly
+
+	// Prompt user to input dblCanAffordMonthly, intYears, dblRate
+	
+	printf_s("Enter the monthly payment you can afford: ");
+	scanf_s("%lf", &dblCanAffordMonthly);
+
+	// Ask User to Enter number of years
+	printf_s("Enter the number of years: ");
+	scanf_s("%d", &intYears);
+
+	// Compute intNumberOfPeriods
+	intNumberOfPeriods = intYears * 12;
+
+	// Ask user to Enter rate
+	printf_s("Enter the rate (e.g. 3.4 for 3.4%%): ");
+	scanf_s("%lf", &dblRate);
+
+	// Compute dblRate
+	dblRate /= (100.0 * 12);
+
+	//top = (1 + (dblRate)*pow(-intNumberOfPeriods);
+
+	//Compute dblMaxLoanAmount
+	dblMaxLoanAmount = (dblCanAffordMonthly) * (1 - pow((1 + dblRate),-intNumberOfPeriods)) / dblRate ;
+
+	// Tells user the maximum amount they could borrow
+	printf_s("The maximum amount you should borrow is: $%.2f\n", dblMaxLoanAmount);
+
+	// Asks the user to enter amount of money borrowed
+	printf_s("Enter the amount borrowed: ");
+	scanf_s("%lf", &dblAmountBorrowed);
+
+	// Assign and compute the numberator of the amortization equation
+	double onePlusRToN = pow((1 + dblRate), intNumberOfPeriods);
+
+	// Compute equation using mostly assignments
+	dblMonthlyPayment = dblAmountBorrowed * (dblRate * onePlusRToN) / (onePlusRToN - 1);
+
+	// Prints user's monthly payment
+	printf_s("Your monthly payment is: $%.2f\n", dblMonthlyPayment);
+
+	// Pritns Headers
+	printf_s("Period:\t\tPrincipal:\t\tInterest:\tTotal Interest:\t\tBalance:\n");
+	
+	// Introducing intPeriod, which represents each month and dblPrin, which is the Principal
+	int intPeriod;
+	double dblPrin;
+	
+	// Create and assign dblTotalInt and dblMonthlyInt to 0
+	// Balance = Amount Borrowed before first month
+	double dblTotalInt = 0;
+	double dblMonthlyInt = 0;
+	double dblBalancePrinc = dblAmountBorrowed;
+	
+	// Create for loop for each month using increments for intPeriod
+	for (intPeriod = 1; intPeriod <= intNumberOfPeriods; ++intPeriod) {
+
+		// Compute Principal, Balance, Monthly Payments and Total Interest
+		dblPrin = dblMonthlyPayment - (dblBalancePrinc * dblRate);
+		dblBalancePrinc = dblBalancePrinc - dblPrin;
+		dblMonthlyInt = dblMonthlyPayment - dblPrin;
+		dblTotalInt += dblMonthlyInt;
+
+		// Prints computations until end of time period
+		printf_s("%7u%19.2f%23.2f%22.2f%17.2f\n", intPeriod, dblPrin, dblMonthlyInt, dblTotalInt, dblBalancePrinc);
+
+	}
+
+
+
+	return 0;
+}
